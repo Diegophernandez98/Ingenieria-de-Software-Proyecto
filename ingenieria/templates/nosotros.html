@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/maincss.css" />
+    <title>SuperZoo - Nosotros</title>
+</head>
+<body style="background-color: #f7f5e1;" >
+    <div>
+        <ul class="nav">
+            <li><a href="{% url 'inicio' %}"><img class="logo" src="/static/images/SUPERZOOlogo.jpg" alt="Logo"></a> </li>
+            <li><a href="{% url 'inicio' %}">Inicio</a></li>
+            <li><a href="{% url 'alimentos'%}">Alimentos</a></li>
+            <li><a href="{% url 'accesorios' %}">Accesorios</a></li>
+            <li><a href="{% url 'farmacia' %}">Farmacia</a></li>
+            <li><a href="#">Nosotros</a></li>
+            <li><a href="{% url 'contacto' %}">Contacto</a></li>
+            <li><a href="{% url 'registro' %}">Registrarse</a></li>
+            <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+        </ul>
+    </div>
+    <br>
+    <br>
+    <div>
+        <h2 class="titulo">Nosotros</h2>
+        <p class="parrafo">
+            <img src="/static/images/SUPERZOO.jpg" alt=""/>Somos una cadena de tiendas para mascotas más grande en Chile, contamos con 46 tiendas de Norte a Sur, 
+            despacho express y más de 5000 productos para hacer feliz a tu mascota. El principal objetivo es brindar todo lo que una mascota 
+            necesita y sueña para ser feliz. Desde las mejores marcas de alimentos para asegurar su bienestar y prolongar su vida, hasta los 
+            juguetes más resistentes para tener una vida llena de momentos divertidos. Detrás de SuperZoo, hay más de 500 personas especializadas 
+            y amantes de las mascotas, para cuidar minuciosamente la elección y recomendación de los productos que ofrecemos. Nuestro alcance se 
+            extiende a más de 16 regiones de Chile con diferentes modalidades de delivery.
+        </p>
+        
+        <h2 class="titulo">Nuestra Misión</h2>
+        <p class="parrafo2">
+            <img class="img2"src="/static/images/mision.jpg" alt=""/>Nuestro principal objetivo es brindar todo lo que una mascota necesita y sueña para ser feliz. Desde las mejores marcas de alimentos 
+            para asegurar su bienestar y prolongar su vida, hasta los juguetes más resistentes para tener una vida llena de momentos divertidos.
+            Detrás de SuperZoo, estamos más de 500 personas especializadas y amantes de las mascotas, que cuidamos minuciosamente la elección y 
+            recomendación de los productos que ofrecemos.
+        </p>
+        <h2 class="titulo">Nuestra Visión</h2>
+        <p class="parrafo3">  
+            <img src="/static/images/Vision.jpg" alt=""/>Ser una empresa moderna y sólida, líder en el país y con proyección internacional. Liderada por un equipo con acceso a la más alta 
+            calidad de capacitación y con una mirada colaborativa e inclusiva.
+        </p>  
+    </div>
+    <br>
+    <br>
+    <br>
+
+</body>
+</html>

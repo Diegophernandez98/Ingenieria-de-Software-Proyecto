@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>SuperZoo - Administrador</title>
+	<link rel="stylesheet" href="/static/css/estilos.css" />
+</head>
+<body style="background-color: #f7f5e1;">
+	<header class="header" style="background-color: #e3200e;">
+		<div class="container">
+		<div class="btn-menu">
+			<label for="btn-menu">☰</label>
+		</div>
+			<div class="logo">
+				<a href="{% url 'inicio' %}"><img src="/static/images/SUPERZOOlogo.jpg" alt="Logo"></a>
+			</div>
+			<nav class="menu">
+				<a href="{% url 'inicio' %}">Inicio</a>
+				<a href="{% url 'alimentos'%}">Alimentos</a>
+            	<a href="{% url 'accesorios' %}">Accesorios</a>
+            	<a href="{% url 'farmacia' %}">Farmacia</a>
+            	<a href="{% url 'nosotros' %}">Nosotros</a>
+            	<a href="{% url 'contacto' %}">Contacto</a>
+                <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
+			</nav>
+		</div>
+	</header>
+	<div class="capa"></div>
+<!--	--------------->
+<input type="checkbox" id="btn-menu">
+<div class="container-menu">
+	<div class="cont-menu">
+		<nav>
+			<a href="{% url 'agregar_producto' %}">Agregar producto</a>
+			<a href="{% url 'productos' %}">Productos</a>
+			<a href="{% url 'actualizar_producto' %}">Editar productos</a>
+			<a href="#">Actualizar stock</a>
+			<a href="#">Comparar ganancias</a>
+		</nav>
+		<label for="btn-menu">✖️</label>
+	</div>
+</div>
+</body>
+</html>

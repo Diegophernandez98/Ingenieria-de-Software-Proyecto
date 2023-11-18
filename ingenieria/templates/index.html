@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/maincss.css" />
+    <title>SuperZoo - Inicio</title>
+</head>
+<body style="background-color: #f7f5e1;">
+    <div>
+        <ul class="nav">
+            <li><a href="#"><img class="logo" src="/static/images/SUPERZOOlogo.jpg" alt="Logo"></a> </li>
+            <li><a href="#">Inicio</a></li>
+            <li><a href= "{% url 'alimentos'%}" >Alimentos</a></li>
+            <li><a href= "{% url 'accesorios' %}" >Accesorios</a></li>
+            <li><a href= "{% url 'farmacia' %}" >Farmacia</a></li>
+            <li><a href= "{% url 'nosotros' %}" >Nosotros</a></li>
+            <li><a href= "{% url 'contacto' %}" >Contacto</a></li>
+            <li><a href= "{% url 'registro' %}" >Registrarse</a></li>
+            <li><a href= "{% url 'login' %}" >Iniciar Sesión</a></li>
+            <li><a href= "{% url 'carrito_compras' %}">Carrito de Compras</a></li>
+        </ul>
+    </div>
+    <br>
+    <br>
+    <div class="title">
+        <h1>Bienvenido a la página principal de superZoo</h1>
+    </div>
+    <div class="container-card">
+        <br>
+        
+        <div class="card" style="background: #ef5454;">
+            <div class="contenido-card">
+                <h3>Alimento</h3>
+                <a href="{% url 'alimentos'%}">
+                    <img src="/static/images/comida.jpg" alt="" />
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="card" style="background: #ef5454;">
+            <div class="contenido-card">
+                <h3>Accesorios</h3>
+                <a href="{% url 'accesorios' %}">
+                    <img src="/static/images/accesorios.jpg" alt="" />
+                </a>
+            </div>
+        </div>
+        <br>
+        <div class="card" style="background: #ef5454;">
+            <div class="contenido-card">
+                <h3>Farmacia</h3>
+                <a href="{% url 'farmacia' %}">
+                    <img src="/static/images/farmacia.jpg" alt="" />
+                </a>
+            </div>
+        </div>
+        <br>
+    </div>
+</body>
+</html>

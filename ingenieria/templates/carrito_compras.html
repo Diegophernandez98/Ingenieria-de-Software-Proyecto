@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/maincss.css" />
+    <title>SuperZoo - Inicio</title>
+</head>
+<body style="background-color: #f7f5e1;">
+    <div>
+        <ul class="nav">
+            <li><a href="#"><img class="logo" src="/static/images/SUPERZOOlogo.jpg" alt="Logo"></a> </li>
+            <li><a href="#">Inicio</a></li>
+            <li><a href= "{% url 'alimentos'%}" >Alimentos</a></li>
+            <li><a href= "{% url 'accesorios' %}" >Accesorios</a></li>
+            <li><a href= "{% url 'farmacia' %}" >Farmacia</a></li>
+            <li><a href= "{% url 'nosotros' %}" >Nosotros</a></li>
+            <li><a href= "{% url 'contacto' %}" >Contacto</a></li>
+            <li><a href= "{% url 'registro' %}" >Registrarse</a></li>
+            <li><a href= "{% url 'login' %}" >Iniciar Sesión</a></li>
+            <li><a href= "{% url 'carrito_compras' %}">Carrito de Compras</a></li>
+        </ul>
+    </div>
+    <br>
+    <br>
+    <div class="title">
+        <h1>Carrito de Compras</h1>
+    </div>
+    <h3>Lista de productos</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>nombre</th>
+                <th>precio</th>
+                <th>cantidad</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+            </tr>
+
+        </tbody>
+    </table>
+</body>
+</html>
