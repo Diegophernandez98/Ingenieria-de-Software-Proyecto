@@ -263,7 +263,7 @@ def producto_editar(request):
             Producto.id_tipo_animal = id_tipo_animal_Nuevo
             Producto.save()
             print("Datos cambiados exitosamente.")
-            return render(request, "actualizar_producto.html", {'producto': producto})
+            return render(request, "actualizar_producto.html", {'producto': productos})
             
 
     #return render(request, "producto_Editar.html")
