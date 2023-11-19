@@ -4,9 +4,6 @@ from app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.inicio, name="inicio"),
-    path('alimentos/', views.alimentos, name="alimentos"),
-    path('accesorios/', views.accesorios, name="accesorios"),
-    path('farmacia/', views.farmacia, name="farmacia"),
     path('nosotros/', views.nosotros, name="nosotros"),
     path('contacto/', views.contacto, name="contacto"),
     path('registro/', views.registro, name="registro"),
@@ -15,9 +12,6 @@ urlpatterns = [
     path('cliente/', views.cliente, name="cliente"),
     path('administrador/', views.administrador, name="administrador"),
     path('carrito_compras/', views.carrito_compras, name="carrito_compras"),
-    path('empleado/', views.empleado, name="empleado"),
-    path('gatos/', views.gatos, name="gatos"),
-    path('perros/', views.perros, name="perros"),
     path('otras_mascotas/', views.otras_mascotas, name="otras_mascotas"),
     path('todo_alimento/', views.todo_alimento, name="todo_alimento"),
     path('cambiar_clave/', views.cambiar_clave, name="cambiar_clave"),
@@ -27,5 +21,13 @@ urlpatterns = [
     path('productos/', views.productos, name="productos"),
     path("eliminar_producto/<int:producto_id>/", views.eliminar_producto),
     path("actualizar_producto/", views.actualizar_producto, name="actualizar_producto"),
-    path("producto_editar/", views.producto_editar, name="producto_editar")
-]
+    path('otras_mascotas/', views.otras_mascotas, name="otras_mascotas"),
+    path('todo_alimento/', views.todo_alimento, name="todo_alimento"),
+    path('alimentos/', views.alimentos, name="alimentos"),
+    path('alimento/<int:tipoP_id>/<int:tipoA_id>/', views.alimento, name="alimento"),
+    path('accesorio/<int:tipoP_id>/<int:tipoA_id>/', views.accesorio, name="accesorio"),
+    path('farmacia_tipo/<int:tipoP_id>/<int:tipoA_id>/', views.farmacia_tipo, name="farmacia_tipo"),
+    path('todos_productos/', views.todos_productos, name="todos_productos"),
+    path('accesorios/', views.accesorios, name="accesorios"),
+    path('farmacia/', views.farmacia, name="farmacia"),
+    ]

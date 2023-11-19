@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/maincss.css" />
-    <title>SuperZoo - Alimentos</title>
+    <title>SuperZoo - Menu Alimentos</title>
 </head>
 <body style="background-color: #f7f5e1;">
     <div>
@@ -19,6 +19,7 @@
             <li><a href="{% url 'contacto' %}">Contacto</a></li>
             <li><a href="{% url 'registro' %}">Registrarse</a></li>
             <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+            <li><a href= "{% url 'carrito_compras' %}">Carrito de Compras</a></li>
         </ul>
     </div>
     <br>
@@ -28,7 +29,7 @@
         <div class="card" style="background: #ef5454;">
             <div class="contenido-card">
                 <h3>Perros</h3>
-                <a href="#">
+                <a href="{% url 'alimento' tipoP_id=1 tipoA_id=1 %}">
                     <img src="/static/images/choco.jpg" alt="" />
                 </a>
             </div>
@@ -37,7 +38,7 @@
         <div class="card" style="background: #ef5454;">
             <div class="contenido-card">
                 <h3>Gatos</h3>
-                <a href="#">
+                <a href="{% url 'alimento' tipoP_id=1 tipoA_id=2 %}">
                     <img src="/static/images/cholito.jpg" alt="" />
                 </a>
             </div>
@@ -46,7 +47,7 @@
         <div class="card" style="background: #ef5454;">
             <div class="contenido-card">
                 <h3>Otras mascotas</h3>
-                <a href="#">
+                <a href="{% url 'alimento' tipoP_id=1 tipoA_id=3 %}">
                     <img src="/static/images/otrasMasco.jpg" alt="" />
                 </a>
             </div>
@@ -55,7 +56,7 @@
         <div class="card" style="background: #ef5454;">
             <div class="contenido-card">
                 <h3>Todo</h3>
-                <a href="#">
+                <a href="{% url 'todos_productos' %}">
                     <img src="/static/images/todo.jpg" alt="" />
                 </a>
             </div>

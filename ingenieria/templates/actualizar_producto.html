@@ -29,13 +29,30 @@
         <br>
         <div class="contenido">
             <h1>Actualizar producto</h1>
-            <form method="post" action="{% url 'actualizar_producto'%}">
+            <form method="post" action="{% url 'actualizar_producto' %}">
                 {% csrf_token %}
 
                 <label for="id_producto">ID del producto:</label>
                 <input type="text" name="id_producto" required>
+
+				<label for="nombre_nuevo">Nombre:</label>
+                <input type="text" name="nombre_nuevo" required>
+
+                <label for="precio_nuevo">Precio:</label>
+                <input type="number" name="precio_nuevo" required>
+
+                <label for="stock_nuevo">Stock:</label>
+                <input type="number" name="stock_nuevo" required>
+
+                <label for="id_tipo_producto_nuevo">Id tipo producto:</label>
+                <input type="number" name="id_tipo_producto_nuevo" required>
+
+                <label for="id_tipo_animal_nuevo">Id tipo animal:</label>
+                <input type="number" name="id_tipo_animal_nuevo" required>
+            
+                <button type="submit">Actualizar producto</button>
                 
-              </form>
+            </form>
         </div>
 	</header>
 	<div class="capa"></div>
@@ -46,7 +63,7 @@
 		<nav>
 			<a href="{% url 'agregar_producto' %}">Agregar producto</a>
 			<a href="{% url 'productos' %}">productos</a>
-			<a href="#">Actualizar stock</a>
+			<a href="#">Editar productos</a>
 			<a href="#">Comparar ganancias</a>
 		</nav>
 		<label for="btn-menu">✖️</label>

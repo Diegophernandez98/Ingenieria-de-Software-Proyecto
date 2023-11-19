@@ -28,7 +28,7 @@
         <div class="card" style="background: #ef5454;">
             <div class="contenido-card">
                 <h3>Perros</h3>
-                <a href="#">
+                <a href="{% url 'farmacia_tipo' tipoP_id=3 tipoA_id=1 %}">
                     <img src="/static/images/choco.jpg" alt="" />
                 </a>
             </div>
@@ -37,7 +37,7 @@
         <div class="card" style="background: #ef5454;">
             <div class="contenido-card">
                 <h3>Gatos</h3>
-                <a href="#">
+                <a href="{% url 'farmacia_tipo' tipoP_id=3 tipoA_id=2 %}">
                     <img src="/static/images/cholito.jpg" alt="" />
                 </a>
             </div>
@@ -46,7 +46,7 @@
         <div class="card" style="background: #ef5454;">
             <div class="contenido-card">
                 <h3>Otras mascotas</h3>
-                <a href="#">
+                <a href="{% url 'farmacia_tipo' tipoP_id=3 tipoA_id=3 %}">
                     <img src="/static/images/otrasMasco.jpg" alt="" />
                 </a>
             </div>
@@ -55,7 +55,7 @@
         <div class="card" style="background: #ef5454;">
             <div class="contenido-card">
                 <h3>Todo</h3>
-                <a href="#">
+                <a href="{% url 'todos_productos' %}">
                     <img src="/static/images/todo.jpg" alt="" />
                 </a>
             </div>

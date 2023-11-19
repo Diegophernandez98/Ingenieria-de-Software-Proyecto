@@ -24,18 +24,18 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=50, null=False)
     precio = models.IntegerField(null=False, default=10000)
     stock = models.IntegerField(null=False, default=100)
-    tipo_producto = models.ForeignKey(Tipo_Producto, on_delete=models.CASCADE)
-    tipo_animal = models.ForeignKey(Tipo_Animal, on_delete=models.CASCADE, default=99999)
+    id_tipo_producto = models.ForeignKey(Tipo_Producto, on_delete=models.CASCADE)
+    id_tipo_animal = models.ForeignKey(Tipo_Animal, on_delete=models.CASCADE)
 
 class Venta(models.Model):
     valor = models.IntegerField(null=False)
     fecha = models.DateTimeField(null=False)
     comuna = models.CharField(max_length=50, null=False)
     direccion = models.CharField(max_length=100, null=False)
-    rut_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, default=99999)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, default=99999)
-    tipo_producto = models.ForeignKey(Tipo_Producto, on_delete=models.CASCADE, default=99999)
-    tipo_animal = models.ForeignKey(Tipo_Animal, on_delete=models.CASCADE, default=99999)
+    rut_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    id_tipo_producto = models.ForeignKey(Tipo_Producto, on_delete=models.CASCADE)
+    id_tipo_animal = models.ForeignKey(Tipo_Animal, on_delete=models.CASCADE)
 
 
 class Dudas(models.Model):
