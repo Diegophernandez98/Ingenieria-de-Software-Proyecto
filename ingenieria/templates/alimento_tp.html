@@ -21,7 +21,7 @@
             <li><a href= "{% url 'contacto' %}" >Contacto</a></li>
             <li><a href= "{% url 'registro' %}" >Registrarse</a></li>
             <li><a href= "{% url 'login' %}" >Iniciar Sesión</a></li>
-            <li><a href= "{% url 'carrito_compras' %}">Carrito de Compras</a></li>
+            <li><a href= "#s">Carrito de Compras</a></li>
         </ul>
     </div>
     <br>
@@ -40,6 +40,7 @@
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Stock</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -48,6 +49,9 @@
                     <td>{{ p.nombre }}</td>
                     <td>{{ p.precio }}</td>
                     <td>{{ p.stock }}</td>
+                    <td>
+                        <a href="{% url 'carritoCompra' producto_id=p.id %}">Agregar al Carrito</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

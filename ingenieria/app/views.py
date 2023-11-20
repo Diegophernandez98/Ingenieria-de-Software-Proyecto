@@ -273,5 +273,44 @@ def otras_mascotas(request):
 def todo_alimento(request):
     return render(request, "todo_alimento.html")
 
-def carrito_compras(request):
-    return render(request, "carrito_compras.html")
+def carritoCompra(request, producto_id):
+    try:
+        producto = Producto.objects.get(pk=producto_id)
+
+    except Producto.DoesNotExist:
+        return render(request, 'producto_no_encontrado.html')
+
+    if producto.stock > 0:
+        carrito = request.session.get('carrito', [])
+        carrito.append({'id': producto.id, 'nombre': producto.nombre, 'precio': float(producto.precio)})
+        request.session['carrito'] = carrito
+
+        producto.stock -= 1
+        producto.save()
+
+    return render(request, 'carritoCompra.html', {'producto': producto})
+
+def eliminarProductoCarrito(request, producto_id):
+    carrito = request.session.get('carrito', [])
+
+    for item in carrito:
+        if item['id'] == producto_id:
+            # Restaurar stock
+            producto = Producto.objects.get(pk=producto_id)
+            producto.stock += 1
+            producto.save()
+
+            carrito.remove(item)
+            request.session['carrito'] = carrito
+            return render(request, 'carritoCompra.html', {'producto': producto})
+
+def vaciarCarrito(request):
+    carrito = request.session.get('carrito', [])
+    for item in carrito:
+        producto = Producto.objects.get(pk=item['id'])
+        producto.stock += 1
+        producto.save()
+
+    request.session['carrito'] = []
+
+    return render(request, 'carritoCompra.html', {'producto': producto})
