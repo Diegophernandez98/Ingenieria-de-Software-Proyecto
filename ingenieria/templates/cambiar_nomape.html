@@ -22,7 +22,7 @@
             	<a href="{% url 'farmacia' %}">Farmacia</a>
             	<a href="{% url 'nosotros' %}">Nosotros</a>
             	<a href="{% url 'contacto' %}">Contacto</a>
-                <a href= "#">Carrito de Compras</a>
+                <a href="{% url 'ver_carrito' %}">Carrito de Compras</a>
                 <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
 			</nav>
 		</div>
@@ -30,7 +30,7 @@
         <br>
         <br>
         <div class="contenido">
-            <h1>Cambio de comuna</h1>
+            <h1>Editar Usuario</h1>
             <form method="post" action="{% url 'cambiar_nomape' %}">
                 {% csrf_token %}
                 
@@ -39,8 +39,14 @@
 
                 <label for="apellido_nuevo">Ingrese nuevo apellido:</label>
                 <input type="text" name="apellido_nuevo" required>
+
+				<label for="comuna_nueva">Ingrese nueva comuna:</label>
+                <input type="text" name="comuna_nueva" required>
+
+                <label for="direccion_nueva">Ingrese nueva dirección:</label>
+                <input type="text" name="direccion_nueva" required>
             
-                <button type="submit">Cambiar Datos</button>
+                <button type="submit">Guardar cambios</button>
               </form>
         </div>
 	</header>
@@ -52,11 +58,9 @@
 <div class="container-menu">
 	<div class="cont-menu">
 		<nav>
-			<a href="#">Ver boletas</a>
-			<a href="#">Editar Nombre/Apellido</a>
+			<a href="#">Editar usuario</a>
 			<a href="{% url 'cambiar_clave' %}">Editar Contraseña</a>
-			<a href="{% url 'cambiar_domicilio' %}">Editar Domicilio</a>
-			<a href="#">Carrito de compras</a>
+			<a href="{% url 'ver_carrito' %}">Carrito de Compras</a>
 		</nav>
 		<label for="btn-menu">✖️</label>
 	</div>

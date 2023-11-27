@@ -62,6 +62,7 @@
                                 <td>{{ p.id_tipo_animal_id }}</td>
                                 <td>
                                     <a href="/eliminar_producto/{{p.id}}" class="btn btn-danger">Eliminar</a>
+                                    <a href="/actualizar_producto/{{p.id}}" class="btn btn-success">Actualizar</a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -78,8 +79,7 @@
 		<nav>
 			<a href="{% url 'agregar_producto' %}">Agregar producto</a>
             <a href="#">productos</a>
-			<a href="{% url 'actualizar_producto' %}">Editar productos</a>
-			<a href="#">Comparar ganancias</a>
+			<a href="{% url 'comparar_ganancias' %}">Comparar ganancias</a>
 		</nav>
 		<label for="btn-menu">✖️</label>
 	</div>

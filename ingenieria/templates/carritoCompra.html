@@ -17,37 +17,60 @@
             <li><a href= "{% url 'inicio' %}">Inicio</a></li>
             <li><a href= "{% url 'alimentos' %}" >Alimentos</a></li>
             <li><a href= "{% url 'accesorios' %}" >Accesorios</a></li>
+            <li><a href= "{% url 'farmacia' %}" >Farmacia</a></li>
+            <li><a href= "{% url 'nosotros' %}" >Nosotros</a></li>
+            <li><a href= "{% url 'contacto' %}" >Contacto</a></li>
             <li><a href= "{% url 'registro' %}" >Registrarse</a></li>
             <li><a href= "{% url 'login' %}" >Iniciar Sesión</a></li>
+            <li><a href="#">Carrito de Compras</a></li>
+            
         </ul>
     </div>
     <div class="container mt-4">
         <h2>Carrito de Compras</h2>
         <br>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in request.session.carrito %}
+        {% if error_message %}
+            <p>{{ error_message }}</p>
+        {% else %}
+            <table class="table table-bordered table-striped">
+                <thead>
                     <tr>
-                        <td>{{ item.nombre }}</td>
-                        <td>{{ item.precio }}</td>
-                        <td>
-                            <a href="{% url 'eliminarProductoCarrito' item.id %}">Eliminar</a>
-                        </td>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for item in request.session.carrito %}
+                        <tr>
+                            <td>{{ item.nombre }}</td>
+                            <td>{{ item.precio }}</td>
+                            <td>
+                                <a href="{% url 'eliminarProductoCarrito' item.id %}">Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        {% if carrito %}
+        <p>Total: ${{ total }}</p>
+        {% endif %}
     </div>
     <div class="container mt-4">
         <a href="{% url 'vaciarCarrito' %}">Vaciar Carrito</a>
+        <form method="post" action="{% url 'procesarCompra' %}">
+            {% csrf_token %}
+            <label for="comuna">Comuna:</label>
+            <input type="text" name="comuna" required>
+            <br>
+            <label for="direccion">Dirección:</label>
+            <input type="text" name="direccion" required>
+            <br>
+            <button type="submit">Comprar</button>
+        </form>
     </div>
+    <a href= "{% url 'inicio' %}" ><button type="button">Atrás</button></a>
 
 </body>
 </html>

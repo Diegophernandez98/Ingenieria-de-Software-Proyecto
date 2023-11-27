@@ -20,6 +20,7 @@
             <li><a href="{% url 'contacto' %}">Contacto</a></li>
             <li><a href="#">Registrarse</a></li>
             <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+            <li><a href="{% url 'ver_carrito' %}">Carrito de Compras</a></li>
         </ul>
     </div>
     <br>
@@ -36,6 +37,7 @@
                     <div class="mb-3">
                         <label for="id_rut" class="form-label">RUT:</label>
                         <input type="text" id="id_rut"  class="form-control" name="rut" required>
+                        {{error_messagerut}}
                     </div>
                     <div>
                         <label for="id_nombre" class="form-label">Nombre:</label>
@@ -71,6 +73,7 @@
                         <button type="submit" class="btn btn-primary">Registrarse</button>
                     </div>
                 </form>
+                {{error_message}}
             </div>
         </div>
     </div>

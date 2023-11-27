@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/maincss.css" />
+    <title>SuperZoo - Inicio</title>
+</head>
+<body style="background-color: #f7f5e1;">
+    <div>
+        <ul class="nav">
+            <li><a href="#"><img class="logo" src="/static/images/SUPERZOOlogo.jpg" alt="Logo"></a> </li>
+            <li><a href="#">Inicio</a></li>
+            <li><a href= "{% url 'alimentos'%}" >Alimentos</a></li>
+            <li><a href= "{% url 'accesorios' %}" >Accesorios</a></li>
+            <li><a href= "{% url 'farmacia' %}" >Farmacia</a></li>
+            <li><a href= "{% url 'nosotros' %}" >Nosotros</a></li>
+            <li><a href= "{% url 'contacto' %}" >Contacto</a></li>
+            <li><a href= "{% url 'registro' %}" >Registrarse</a></li>
+            <li><a href= "{% url 'login' %}" >Iniciar Sesión</a></li>
+            <li><a href="#">Carrito de Compras</a></li>
+        </ul>
+    </div>
+    <br>
+    {% if carrito %}
+    <h1>Carrito de Compras</h1>
+    <ul>
+        {% for item in carrito %}
+            <li>{{ item.nombre }} - Precio: {{ item.precio }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>{{ error_message }}</p>
+    {% endif %}
+    <a href= "{% url 'inicio' %}" ><button type="button">Atrás</button></a>
+</body>
+</html>

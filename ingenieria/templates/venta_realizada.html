@@ -26,36 +26,21 @@
     </div>
     <br>
     <div class="container mt-4">
-    {% if tipo_producto %}
-        <h2>{{ tipo_producto.nombre }}</h2>
-    {% else %}
-            <h2>Lista de Productos</h2>
-    {% endif %}
-    </div>
-    <br>
-    <div class="container mt-4">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for p in producto %}
-                <tr>
-                    <td>{{ p.nombre }}</td>
-                    <td>{{ p.precio }}</td>
-                    <td>{{ p.stock }}</td>
-                    <td>
-                        <a href="{% url 'carritoCompra' producto_id=p.id %}">Agregar al Carrito</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <h1>Compra realizada exitosamente</h1>
+        <p>Detalles de la compra:</p>
+        <ul>
+            <li>Valor: {{ venta.valor }}</li>
+            <li>Fecha: {{ venta.fecha }}</li>
+            <li>Comuna: {{ venta.comuna }}</li>
+            <li>Dirección: {{ venta.direccion }}</li>
+            <li>Productos:</li>
+            <ul>
+                {% for producto in venta.id_producto.all %}
+                    <li>{{ producto.nombre }} - Precio: {{ producto.precio }}</li>
+                {% endfor %}
+            </ul>
+        </ul>
+        <button type="submit"><a href="{% url 'inicio' %}">Volver</a></button>
     </div>
 </body>
 </html>

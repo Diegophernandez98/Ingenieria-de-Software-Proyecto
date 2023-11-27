@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>SuperZoo - Administrador</title>
+	<link rel="stylesheet" href="/static/css/estilos.css" />
+</head>
+<body style="background-color: #f7f5e1;">
+	<header class="header" style="background-color: #e3200e;">
+		<div class="container">
+		<div class="btn-menu">
+			<label for="btn-menu">☰</label>
+		</div>
+			<div class="logo">
+				<a href="{% url 'inicio' %}"><img src="/static/images/SUPERZOOlogo.jpg" alt="Logo"></a>
+			</div>
+			<nav class="menu">
+				<a href="{% url 'inicio' %}">Inicio</a>
+				<a href="{% url 'alimentos'%}">Alimentos</a>
+            	<a href="{% url 'accesorios' %}">Accesorios</a>
+            	<a href="{% url 'farmacia' %}">Farmacia</a>
+            	<a href="{% url 'nosotros' %}">Nosotros</a>
+            	<a href="{% url 'contacto' %}">Contacto</a>
+                <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
+			</nav>
+		</div>
+        <div class="container mt-4">
+            <h2>Seleccionar Rango de Fechas</h2>
+            <br>
+            <form method="post" action="{% url 'ganancias' %}">
+                {% csrf_token %}
+                <label for="fecha_inicio">Fecha de Inicio:</label>
+                <input type="date" name="fecha_inicio" required>
+                <br>
+                <label for="fecha_fin">Fecha de Fin:</label>
+                <input type="date" name="fecha_fin" required>
+                <br>
+                <button type="submit">Comparar Ganancias</button>
+            </form>
+        </div>
+	</header>
+	<div class="capa"></div>
+<!--	--------------->
+<input type="checkbox" id="btn-menu">
+<div class="container-menu">
+	<div class="cont-menu">
+		<nav>
+			<a href="{% url 'agregar_producto' %}">Agregar producto</a>
+			<a href="{% url 'productos' %}">Productos</a>
+			<a href="#">Comparar ganancias</a>
+		</nav>
+		<label for="btn-menu">✖️</label>
+	</div>
+</div>
+</body>
+</html>

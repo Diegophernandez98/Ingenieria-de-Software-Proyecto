@@ -32,11 +32,8 @@ class Venta(models.Model):
     fecha = models.DateTimeField(null=False)
     comuna = models.CharField(max_length=50, null=False)
     direccion = models.CharField(max_length=100, null=False)
-    rut_usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    id_tipo_producto = models.ForeignKey(Tipo_Producto, on_delete=models.CASCADE)
-    id_tipo_animal = models.ForeignKey(Tipo_Animal, on_delete=models.CASCADE)
-
+    id_producto = models.ManyToManyField('Producto', related_name='ventas_id_producto')
+    productos = models.ManyToManyField(Producto, related_name='ventas_productos')
 
 class Dudas(models.Model):
     correo = models.CharField(max_length=50)

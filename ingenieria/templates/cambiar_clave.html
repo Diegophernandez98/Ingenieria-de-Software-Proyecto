@@ -22,28 +22,34 @@
             	<a href="{% url 'farmacia' %}">Farmacia</a>
             	<a href="{% url 'nosotros' %}">Nosotros</a>
             	<a href="{% url 'contacto' %}">Contacto</a>
-                <a href= "#">Carrito de Compras</a>
+                <a href="{% url 'ver_carrito' %}">Carrito de Compras</a>
                 <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
 			</nav>
 		</div>
         <br>
         <br>
         <br>
-        <div class="contenido">
-            <h1>Cambio de contraseña</h1>
-            <form method="post" action="{% url 'cambiar_clave' %}">
-                {% csrf_token %}
-                
-                <label for="contrasena_actual">Contraseña actual:</label>
-                <input type="password" name="contrasena_actual" required>
-                
-                <label for="contraseña_nueva">Nueva contraseña:</label>
-                <input type="password" name="contrasena_nueva" required>
-            
-                <button type="submit">Cambiar Contraseña</button>
-              </form>
-        </div>
 	</header>
+	<div>
+		<div>
+			<div>
+
+				<h1>Cambio de contraseña</h1>
+				<form method="post" action="{% url 'cambiar_clave' %}">
+					{% csrf_token %}
+		
+					<label for="contrasena_actual">Contraseña actual:</label>
+					<input type="password" name="contrasena_actual" required>
+		
+					<label for="contraseña_nueva">Nueva contraseña:</label>
+					<input type="password" name="contrasena_nueva" required>
+		
+					<button type="submit">Cambiar Contraseña</button>
+				</form>
+				
+			</div>
+		</div>
+	</div>
     
 	<div class="capa"></div>
 
@@ -52,11 +58,9 @@
 <div class="container-menu">
 	<div class="cont-menu">
 		<nav>
-			<a href="#">Ver boletas</a>
-			<a href="{% url 'cambiar_nomape' %}">Editar Nombre/Apellido</a>
+			<a href="{% url 'cambiar_nomape' %}">Editar usuario</a>
 			<a href="#">Editar Contraseña</a>
-			<a href="{% url 'cambiar_domicilio' %}">Editar Domicilio</a>
-			<a href="#">Carrito de compras</a>
+			<a href="{% url 'ver_carrito' %}">Carrito de Compras</a>
 		</nav>
 		<label for="btn-menu">✖️</label>
 	</div>
