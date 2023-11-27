@@ -170,8 +170,8 @@ def agregar_producto(request):
         nuevoProducto = Producto(nombre=nombre,
                                  precio=precio, 
                                  stock=stock, 
-                                 id_tipo_producto_id=id_tipo_producto, 
-                                 id_tipo_animal_id=id_tipo_animal,
+                                 tipo_producto_id=id_tipo_producto, 
+                                 tipo_animal_id=id_tipo_animal,
                                 )
         
         if nuevoProducto is not None:
@@ -187,9 +187,14 @@ def productos(request):
     return render(request, "productos.html", data)
 
 def eliminar_producto(request, producto_id):
-    producto = Producto.objects.get(pk=producto_id)
-    producto.delete()
-    return redirect('/productos')
+    try:
+        producto = Producto.objects.get(pk=producto_id)
+        if producto is not None:
+            producto.delete()
+        return redirect('/productos')
+    except Producto.DoesNotExist:
+        error_message = f"El producto con ID {producto_id} no existe."
+        return render(request, 'productos.html', {'error_message': error_message})
 
 def actualizar_producto(request, producto_id):
         producto = Producto.objects.get(pk=producto_id)
@@ -218,19 +223,19 @@ def alimentos(request):
            return render(request, "alimentos.html")
         
 def alimento(request, tipoP_id, tipoA_id):
-    producto = Producto.objects.filter(id_tipo_producto_id=tipoP_id,id_tipo_animal_id=tipoA_id)
+    producto = Producto.objects.filter(tipo_producto_id=tipoP_id,tipo_animal_id=tipoA_id)
     tipo_producto = Tipo_Producto.objects.get(id=tipoP_id)
     tipo_animal = Tipo_Animal.objects.get(id=tipoA_id)
     return render(request, "alimento_tp.html", {"producto":producto, "tipo_producto": tipo_producto, "tipo_animal":tipo_animal})
 
 def accesorio(request, tipoP_id, tipoA_id):
-    producto = Producto.objects.filter(id_tipo_producto_id=tipoP_id,id_tipo_animal_id=tipoA_id)
+    producto = Producto.objects.filter(tipo_producto_id=tipoP_id,tipo_animal_id=tipoA_id)
     tipo_producto = Tipo_Producto.objects.get(id=tipoP_id)
     tipo_animal = Tipo_Animal.objects.get(id=tipoA_id)
     return render(request, "accesorio.html", {"producto":producto, "tipo_producto": tipo_producto, "tipo_animal":tipo_animal})
 
 def farmacia_tipo(request, tipoP_id, tipoA_id):
-    producto = Producto.objects.filter(id_tipo_producto_id=tipoP_id,id_tipo_animal_id=tipoA_id)
+    producto = Producto.objects.filter(tipo_producto_id=tipoP_id,tipo_animal_id=tipoA_id)
     tipo_producto = Tipo_Producto.objects.get(id=tipoP_id)
     tipo_animal = Tipo_Animal.objects.get(id=tipoA_id)
     return render(request, "farmacia_tipo.html", {"producto":producto, "tipo_producto": tipo_producto, "tipo_animal":tipo_animal})
@@ -256,14 +261,16 @@ def carritoCompra(request, producto_id):
     producto = Producto.objects.get(pk=producto_id)
 
     if producto.stock > 0:
+        producto.stock -= 1
+        producto.save()
         carrito = request.session.get('carrito', [])
         carrito.append({'id': producto.id, 'nombre': producto.nombre, 'precio': float(producto.precio)})
         request.session['carrito'] = carrito
         carrito = request.session.get('carrito', [])
         total = sum(item['precio'] for item in carrito)
         return render(request, 'carritoCompra.html', {'carrito': carrito, 'total': total})
-
-    return render(request, 'carritoCompra.html', {'producto': producto})
+    else:
+        return render(request, 'carritoCompra.html', {'producto': producto})
 
 def verCarrito(request):
     carrito = request.session.get('carrito', [])
@@ -276,7 +283,7 @@ def eliminarProductoCarrito(request, producto_id):
         if item['id'] == producto_id:
             # Restaurar stock
             producto = Producto.objects.get(pk=producto_id)
-            producto.stock += 0
+            producto.stock += 1
             producto.save()
 
             carrito.remove(item)
@@ -298,7 +305,7 @@ def vaciarCarrito(request):
 
     request.session['carrito'] = []
 
-    return render(request, 'index.html')
+    return render(request, 'carritoCompra.html')
 
 def procesar_compra(request):
     if request.method == 'POST':
@@ -325,7 +332,7 @@ def procesar_compra(request):
 
                 if producto.stock >= 1:
                     nueva_venta.id_producto.add(producto)
-                    producto.stock -= 1
+                    producto.stock -= 0
                     producto.save()
                 else:
                     raise IntegrityError("Stock insuficiente para el producto {}".format(producto.nombre))

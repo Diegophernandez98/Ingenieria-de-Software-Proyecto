@@ -17,7 +17,7 @@ urlpatterns = [
     path('cambiar_nomape/', views.cambiar_nomape, name="cambiar_nomape"),
     path('agregar_producto', views.agregar_producto, name="agregar_producto"),
     path('productos/', views.productos, name="productos"),
-    path("eliminar_producto/<int:producto_id>/", views.eliminar_producto),
+    path("eliminar_producto/<int:producto_id>/", views.eliminar_producto, name="eliminar_producto"),
     path('actualizar_producto/<int:producto_id>/', views.actualizar_producto, name='actualizar_producto'),
     path('otras_mascotas/', views.otras_mascotas, name="otras_mascotas"),
     path('todo_alimento/', views.todo_alimento, name="todo_alimento"),

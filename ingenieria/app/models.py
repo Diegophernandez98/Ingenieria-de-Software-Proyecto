@@ -24,8 +24,8 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=50, null=False)
     precio = models.IntegerField(null=False, default=10000)
     stock = models.IntegerField(null=False, default=100)
-    id_tipo_producto = models.ForeignKey(Tipo_Producto, on_delete=models.CASCADE)
-    id_tipo_animal = models.ForeignKey(Tipo_Animal, on_delete=models.CASCADE)
+    tipo_producto = models.ForeignKey(Tipo_Producto, on_delete=models.CASCADE)
+    tipo_animal = models.ForeignKey(Tipo_Animal, on_delete=models.CASCADE)
 
 class Venta(models.Model):
     valor = models.IntegerField(null=False)

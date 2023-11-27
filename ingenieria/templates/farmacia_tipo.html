@@ -50,7 +50,7 @@
                     <td>{{ p.precio }}</td>
                     <td>{{ p.stock }}</td>
                     <td>
-                        <a href="{% url 'carritoCompra' producto_id=p.id %}">Agregar al Carrito</a>
+                        <a href="{% url 'carritoCompra' p.id %}">Agregar al Carrito</a>
                     </td>
                 </tr>
             {% endfor %}
