@@ -56,8 +56,12 @@ def registro(request):
 
         # Verificar si el rut ya existe en la base de datos
         if Usuario.objects.filter(rut=rut).exists():
-            error_messagerut = "El rut ya existe"
+            error_messagerut = "El rut no es válido o ya existe."
             return render(request, "registro.html", {"error_messagerut": error_messagerut})
+        if Usuario.objects.filter(correo=correo).exists():
+            error_messagecorreo = "El correo no es válido o ya existe."
+            return render(request, "registro.html", {"error_messagecorreo": error_messagecorreo})
+
         else:
             # Guardar el nuevo registro si el rut no existe
             nuevoRegistro.save()
@@ -352,11 +356,14 @@ def ganancias(request):
         fecha_inicio = request.POST.get('fecha_inicio')
         fecha_fin = request.POST.get('fecha_fin')
 
-        ventas = Venta.objects.filter(fecha__range=[fecha_inicio, fecha_fin])
+        if fecha_inicio > fecha_fin:
+            return render(request, 'comparar_ganancias.html', {"error": "La fecha Minima no puede ser Mayor a la Máxima"})
+        else:
+            ventas = Venta.objects.filter(fecha__range=[fecha_inicio, fecha_fin])
 
-        ganancias_por_mes = ventas.annotate(mes=TruncMonth('fecha')).values('mes').annotate(ganancia=Sum('valor')).order_by('mes')
+            ganancias_por_mes = ventas.annotate(mes=TruncMonth('fecha')).values('mes').annotate(ganancia=Sum('valor')).order_by('mes')
 
-        return render(request, 'ganancias.html', {'ganancias_por_mes': ganancias_por_mes})
+            return render(request, 'ganancias.html', {'ganancias_por_mes': ganancias_por_mes})
     else:
         return render(request, 'comparar_ganancias.html')
     

@@ -40,9 +40,9 @@
 }
 /*cards*/
 .container-card{
-	width: 100%;
+	width: 50%;
 	display: flex;
-	max-width: 1500px;
+	max-width: 1000px;
 	margin: auto;
 }
 .card{

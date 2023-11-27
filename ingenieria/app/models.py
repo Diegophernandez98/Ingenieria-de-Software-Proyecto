@@ -13,7 +13,7 @@ class Usuario(models.Model):
     rut = models.CharField(max_length=12, primary_key=True)
     nombre = models.CharField(max_length=50, null=False)
     apellido = models.CharField(max_length=50, null=False)
-    correo = models.CharField(max_length=50, null=False)
+    correo = models.CharField(max_length=50, null=False, unique=True)
     celular = models.CharField(max_length=50, null=False)
     comuna = models.CharField(max_length=50, null=False)
     direccion = models.CharField(max_length=100, null=False)
@@ -21,7 +21,7 @@ class Usuario(models.Model):
     rol = models.ForeignKey(Rol_Lista, on_delete=models.CASCADE)
 
 class Producto(models.Model):
-    nombre = models.CharField(max_length=50, null=False)
+    nombre = models.CharField(max_length=50, null=False, unique=True)
     precio = models.IntegerField(null=False, default=10000)
     stock = models.IntegerField(null=False, default=100)
     tipo_producto = models.ForeignKey(Tipo_Producto, on_delete=models.CASCADE)
