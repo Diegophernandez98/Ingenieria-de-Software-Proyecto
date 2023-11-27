@@ -310,13 +310,12 @@ def procesar_compra(request):
         valor_total = sum(item['precio'] for item in carrito)
 
         try:
-            # Obtener la fecha actual
             fecha_actual = datetime.now()
 
-            # Crear la venta con solo el día, mes y año
+
             nueva_venta = Venta.objects.create(
                 valor=valor_total,
-                fecha=fecha_actual.date(),  # Obtener solo la fecha
+                fecha=fecha_actual.date(),
                 comuna=comuna,
                 direccion=direccion
             )
@@ -324,7 +323,6 @@ def procesar_compra(request):
             for item in carrito:
                 producto = Producto.objects.get(pk=item['id'])
 
-                # Verificar si hay suficiente stock
                 if producto.stock >= 1:
                     nueva_venta.id_producto.add(producto)
                     producto.stock -= 1
@@ -349,7 +347,6 @@ def ganancias(request):
 
         ventas = Venta.objects.filter(fecha__range=[fecha_inicio, fecha_fin])
 
-        # Modificar la consulta para agrupar por mes y calcular la suma de las ganancias
         ganancias_por_mes = ventas.annotate(mes=TruncMonth('fecha')).values('mes').annotate(ganancia=Sum('valor')).order_by('mes')
 
         return render(request, 'ganancias.html', {'ganancias_por_mes': ganancias_por_mes})
