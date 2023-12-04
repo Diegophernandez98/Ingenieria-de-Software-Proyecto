@@ -26,39 +26,3 @@
         <br>
         <br>
         <br>
-	</header>
-	<div class="capa"></div>
-    <div class = tablita>
-        <h1 class="display-5">Ganancias</h1>
-        <br>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Mes</th>
-                    <th>Ganancia</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in ganancias_por_mes %}
-                    <tr>
-                        <td>{{ item.mes|date:"F Y" }}</td>
-                        <td>{{ item.ganancia }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-<!--	--------------->
-<input type="checkbox" id="btn-menu">
-<div class="container-menu">
-	<div class="cont-menu">
-		<nav>
-			<a href="{% url 'agregar_producto' %}">Agregar producto</a>
-			<a href="{% url 'productos' %}">Lista de Productos</a>
-			<a href="#">Comparar ganancias</a>
-		</nav>
-		<label for="btn-menu">✖️</label>
-	</div>
-</div>
-</body>
-</html>

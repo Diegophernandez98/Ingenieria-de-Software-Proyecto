@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/maincss.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/maincss.css' %}">
+    <script src="{% static 'js/registro.js' %}"></script>
     <title>SuperZoo - Registro</title>
 </head>
 <body style="background-color: #f7f5e1;">
@@ -20,7 +21,6 @@
             <li><a href="{% url 'contacto' %}">Contacto</a></li>
             <li><a href="#">Registrarse</a></li>
             <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
-            <li><a href="{% url 'ver_carrito' %}">Carrito de Compras</a></li>
         </ul>
     </div>
     <br>
@@ -34,47 +34,45 @@
                 </div>
                 <form method="post" action="{% url 'registro' %}">
                     {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="id_rut" class="form-label">RUT:</label>
-                        <input type="text" id="id_rut"  class="form-control" name="rut" required>
+                    <div class="mb-3" id="idDivRut">
+                        <label for="id_rut" class="form-label">RUT: (formato: 12345678-9)</label>
+                        <input type="text" id="id_rut"  class="form-control" name="rut" placeholder="Ejemplo: 12345678-9" maxlength="10" oninput="checkRut(this)" required>
                         {{error_messagerut}}
                     </div>
                     <div>
                         <label for="id_nombre" class="form-label">Nombre:</label>
-                        <input type="text" id="id_nombre" class="form-control" name="nombre" required>
+                        <input type="text" id="id_nombre" class="form-control" name="nombre" placeholder="Ingrese su nombre" maxlength="50" required>
                     </div>
                     <div>
                         <label for="id_apellido" class="form-label">Apellidos:</label>
-                        <input type="text" id="id_apellido" class="form-control" name="apellido" required>
+                        <input type="text" id="id_apellido" class="form-control" name="apellido" placeholder="Ingrese su apellido" maxlength="50" required>
                     </div>
                     <div>
                         <label for="id_correo" class="form-label">Correo:</label>
-                        <input type="text" id="id_correo" class="form-control" name="correo" required>
-                        {{error_messagecorreo}}
+                        <input type="text" id="id_correo" class="form-control" name="correo" placeholder="Ejemplo@ejemplo.com" maxlength="50" required>
                     </div>
-                    <div>
-                        <label for="id_celular" class="form-label">Celular:</label>
-                        <input type="number" id="id_celular" class="form-control" name="celular" required>
+                    <div id="idDivCelular">
+                        <label for="id_celular" class="form-label">Celular: (Ejemplo: 123456789)</label>
+                        <input type="number" id="id_celular" class="form-control" name="celular" min='0' placeholder="123456789"  maxlength="9" oninput="this.value = this.value.replace(/\D/g,'')" required>
                     </div>
                     <div>
                         <label for="id_comuna" class="form-label">Comuna:</label>
-                        <input type="text" id="id_comuna" class="form-control" name="comuna" required>
+                        <input type="text" id="id_comuna" class="form-control" name="comuna" placeholder="Ejemplo: Osorno" maxlength="50" required>
                     </div>
                     <div>
                         <label for="id_direccion" class="form-label">Dirección:</label>
-                        <input type="text" id="id_direccion" class="form-control" name="direccion" required>
+                        <input type="text" id="id_direccion" class="form-control" name="direccion" placeholder="Ejemplo: Calle Falsa #123" maxlength="50" required>
                     </div>
                     <div>
-                        <label for="id_contrasena" class="form-label">Contraseña:</label>
-                        <input type="password" id="id_contrasena" class="form-control" name="contrasena" required>
+                        <label for="id_contrasena" class="form-label">Contraseña: (maximo 50 caracteres)</label>
+                        <input type="password" id="id_contrasena" class="form-control" name="contrasena" placeholder="Ingrese su contraseña" maxlength="50" required>
                     </div>
                     </div>
                     <br>
                     <div>
-                        <button type="submit" class="btn btn-primary">Registrarse</button>
+                        <button type="submit" class="btn btn-primary" >Registrarse</button>
                     </div>
                 </form>
-                {{error_message}}
             </div>
         </div>
     </div>

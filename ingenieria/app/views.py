@@ -4,8 +4,10 @@ from app.models import Usuario, Rol_Lista, Producto, Tipo_Producto, Tipo_Animal,
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from datetime import datetime
+from django.utils import timezone
 from django.db.models import Sum
 from django.db.models.functions import TruncMonth
+
 
 def inicio(request):
     return render(request, "index.html")
@@ -29,48 +31,53 @@ def contacto(request):
                 return render(request, "contacto.html", {"error_message": error_message})
         
 def registro(request):
-    if request.method == "GET":
-        return render(request, "registro.html")
-    elif request.method == "POST":
-        rut = request.POST.get("rut")
-        nombre = request.POST.get("nombre")
-        apellido = request.POST.get("apellido")
-        correo = request.POST.get("correo")
-        celular = request.POST.get("celular")
-        comuna = request.POST.get("comuna")
-        direccion = request.POST.get("direccion")
-        contrasena = request.POST.get("contrasena")
+    try:
+        if request.method == "GET":
+            return render(request, "registro.html")
+        elif request.method == "POST":
+            rut = request.POST.get("rut")
+            nombre = request.POST.get("nombre")
+            apellido = request.POST.get("apellido")
+            correo = request.POST.get("correo")
+            celular = request.POST.get("celular")
+            comuna = request.POST.get("comuna")
+            direccion = request.POST.get("direccion")
+            contrasena = request.POST.get("contrasena")
 
-        # Crear un nuevo registro
-        nuevoRegistro = Usuario(
-            rut=rut,
-            nombre=nombre,
-            apellido=apellido,
-            correo=correo,
-            celular=celular,
-            comuna=comuna,
-            direccion=direccion,
-            contrasena=contrasena,
-            rol_id=1
-        )
+            # Crear un nuevo registro
+            nuevoRegistro = Usuario(
+                rut=rut,
+                nombre=nombre,
+                apellido=apellido,
+                correo=correo,
+                celular=celular,
+                comuna=comuna,
+                direccion=direccion,
+                contrasena=contrasena,
+                rol_id=1
+            )
 
-        # Verificar si el rut ya existe en la base de datos
-        if Usuario.objects.filter(rut=rut).exists():
-            error_messagerut = "El rut no es válido o ya existe."
-            return render(request, "registro.html", {"error_messagerut": error_messagerut})
-        if Usuario.objects.filter(correo=correo).exists():
-            error_messagecorreo = "El correo no es válido o ya existe."
-            return render(request, "registro.html", {"error_messagecorreo": error_messagecorreo})
+            # Verificar si el rut ya existe en la base de datos
+            if Usuario.objects.filter(rut=rut).exists():
+                error_messagerut = "El rut no es válido o ya existe."
+                return render(request, "registro.html", {"error_messagerut": error_messagerut})
+            if Usuario.objects.filter(correo=correo).exists():
+                error_messagecorreo = "El correo no es válido o ya existe."
+                return render(request, "registro.html", {"error_messagecorreo": error_messagecorreo})
 
+            else:
+                # Guardar el nuevo registro si el rut no existe
+                nuevoRegistro.save()
+                return redirect('/inicio_sesion')
         else:
-            # Guardar el nuevo registro si el rut no existe
-            nuevoRegistro.save()
-            return redirect('/inicio_sesion')
-    else:
-        # Enviar un mensaje de error si el método de solicitud no es GET o POST
-        error_message = "Error. Método de solicitud no permitido"
-        return render(request, "registro.html", {"error_message": error_message})
-    
+            # Enviar un mensaje de error si el método de solicitud no es GET o POST
+            error_message = "Error. Método de solicitud no permitido"
+            return render(request, "registro.html", {"error_message": error_message})
+    except:
+            # Enviar un mensaje de error si el método de solicitud no es GET o POST
+            error_message = "Error. Máxima longitud no permitida."
+            return render(request, "registro.html", {"error_message": error_message})
+        
 def inicio_sesion(request):
     if request.method == "GET":
         return render(request, "inicio_sesion.html")
@@ -161,8 +168,11 @@ def cambiar_nomape(request):
         return redirect('cliente')
     
 def agregar_producto(request):
+    tipos_producto = Tipo_Producto.objects.all()
+    tipos_animal_default = Tipo_Animal.objects.filter(tipo_producto=tipos_producto.first())
+    
     if request.method == "GET":
-        return render(request, "agregar_producto.html")
+        return render(request, "agregar_producto.html", {'tipos_producto': tipos_producto, 'tipos_animal_default': tipos_animal_default})
     
     elif request.method == "POST":
         nombre = request.POST.get("nombre")
@@ -177,8 +187,10 @@ def agregar_producto(request):
                                  tipo_producto_id=id_tipo_producto, 
                                  tipo_animal_id=id_tipo_animal,
                                 )
-        
-        if nuevoProducto is not None:
+        if Producto.objects.filter(nombre=nombre).exists():
+                error_messageproducto = "El producto no es válido o ya existe."
+                return render(request, "agregar_producto.html", {"error_messageproducto": error_messageproducto})
+        elif nuevoProducto is not None:
             nuevoProducto.save()
             return redirect('/agregar_producto')
         else:
@@ -191,15 +203,11 @@ def productos(request):
     return render(request, "productos.html", data)
 
 def eliminar_producto(request, producto_id):
-    try:
-        producto = Producto.objects.get(pk=producto_id)
-        if producto is not None:
-            producto.delete()
-        return redirect('/productos')
-    except Producto.DoesNotExist:
-        error_message = f"El producto con ID {producto_id} no existe."
-        return render(request, 'productos.html', {'error_message': error_message})
-
+    producto = Producto.objects.filter(pk=producto_id).first()
+    producto.delete()
+    return redirect('/productos')
+    
+        
 def actualizar_producto(request, producto_id):
         producto = Producto.objects.get(pk=producto_id)
 
@@ -321,29 +329,34 @@ def procesar_compra(request):
         valor_total = sum(item['precio'] for item in carrito)
 
         try:
-            fecha_actual = datetime.now()
+            if valor_total == 0:
+                error_message_carrito = "Error, el carrito no puede estar vacío."
+                return render(request, 'carritoCompra.html', {'error_message_carrito': error_message_carrito})
+            elif valor_total > 0:
+
+                fecha_actual = datetime.now()
 
 
-            nueva_venta = Venta.objects.create(
-                valor=valor_total,
-                fecha=fecha_actual.date(),
-                comuna=comuna,
-                direccion=direccion
-            )
+                nueva_venta = Venta.objects.create(
+                    valor=valor_total,
+                    fecha=fecha_actual.date(),
+                    comuna=comuna,
+                    direccion=direccion
+                )
 
-            for item in carrito:
-                producto = Producto.objects.get(pk=item['id'])
+                for item in carrito:
+                    producto = Producto.objects.get(pk=item['id'])
 
-                if producto.stock >= 1:
-                    nueva_venta.id_producto.add(producto)
-                    producto.stock -= 0
-                    producto.save()
-                else:
-                    raise IntegrityError("Stock insuficiente para el producto {}".format(producto.nombre))
+                    if producto.stock >= 1:
+                        nueva_venta.id_producto.add(producto)
+                        producto.stock -= 0
+                        producto.save()
+                    else:
+                        raise IntegrityError("Stock insuficiente para el producto {}".format(producto.nombre))
 
-            request.session['carrito'] = []
+                request.session['carrito'] = []
 
-            return render(request, 'venta_realizada.html', {'venta': nueva_venta})
+                return render(request, 'venta_realizada.html', {'venta': nueva_venta})
 
         except IntegrityError as e:
             error_message = str(e)
@@ -371,6 +384,11 @@ def comparar_ganancias(request):
     return render(request, 'comparar_ganancias.html')
 
 def ver_boletas(request):
-    ventas = Venta.objects.all()
-    data = {'ventas': ventas}
-    return render(request, 'ver_boletas.html', data)
+    if request.method == 'GET':
+        fecha_seleccionada = request.GET.get('fecha')
+        if fecha_seleccionada:
+            ventas_del_dia = Venta.objects.filter(fecha__date=fecha_seleccionada)
+            ganancia_total = ventas_del_dia.aggregate(Sum('valor'))['valor__sum'] or 0
+            return render(request, 'boletas.html', {'ventas_del_dia': ventas_del_dia, 'ganancia_total': ganancia_total})
+
+    return render(request, 'boletas.html')

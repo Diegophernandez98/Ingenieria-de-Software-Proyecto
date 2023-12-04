@@ -8,6 +8,7 @@ class Tipo_Producto(models.Model):
 
 class Tipo_Animal(models.Model):
     nombre = models.CharField(max_length=15)
+    tipo_producto = models.ForeignKey(Tipo_Producto, on_delete=models.CASCADE)
 
 class Usuario(models.Model):
     rut = models.CharField(max_length=12, primary_key=True)
@@ -32,7 +33,7 @@ class Venta(models.Model):
     fecha = models.DateTimeField(null=False)
     comuna = models.CharField(max_length=50, null=False)
     direccion = models.CharField(max_length=100, null=False)
-    id_producto = models.ManyToManyField('Producto', related_name='ventas_id_producto')
+    id_producto = models.ManyToManyField(Producto, related_name='ventas_id_producto')
     productos = models.ManyToManyField(Producto, related_name='ventas_productos')
 
 class Dudas(models.Model):

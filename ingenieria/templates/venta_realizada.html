@@ -29,16 +29,20 @@
         <h1>Compra realizada exitosamente</h1>
         <p>Detalles de la compra:</p>
         <ul>
-            <li>Valor: {{ venta.valor }}</li>
+            
             <li>Fecha: {{ venta.fecha }}</li>
-            <li>Comuna: {{ venta.comuna }}</li>
-            <li>Dirección: {{ venta.direccion }}</li>
             <li>Productos:</li>
             <ul>
                 {% for producto in venta.id_producto.all %}
                     <li>{{ producto.nombre }} - Precio: {{ producto.precio }}</li>
                 {% endfor %}
             </ul>
+            <li>datos de envío</li>
+            <ul>Comuna: {{ venta.comuna }}</ul>
+            <ul>Dirección: {{ venta.direccion }}</ul>
+            <li>Valor: {{ venta.valor }}</li>
+            
+            
         </ul>
         <button type="submit"><a href="{% url 'inicio' %}">Volver a página de Inicio</a></button>
     </div>

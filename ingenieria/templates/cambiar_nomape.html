@@ -35,16 +35,16 @@
                 {% csrf_token %}
                 
                 <label for="nombre_nuevo">Ingrese nuevo nombre</label>
-                <input type="text" name="nombre_nuevo" required>
+                <input type="text" name="nombre_nuevo" maxlength="50" required>
 
                 <label for="apellido_nuevo">Ingrese nuevo apellido:</label>
-                <input type="text" name="apellido_nuevo" required>
+                <input type="text" name="apellido_nuevo"  maxlength="50" required>
 
 				<label for="comuna_nueva">Ingrese nueva comuna:</label>
-                <input type="text" name="comuna_nueva" required>
+                <input type="text" name="comuna_nueva"  maxlength="50" required>
 
                 <label for="direccion_nueva">Ingrese nueva dirección:</label>
-                <input type="text" name="direccion_nueva" required>
+                <input type="text" name="direccion_nueva" maxlength="50" required>
             
                 <button type="submit">Guardar cambios</button>
               </form>
@@ -61,6 +61,7 @@
 			<a href="#">Editar usuario</a>
 			<a href="{% url 'cambiar_clave' %}">Editar Contraseña</a>
 			<a href="{% url 'ver_carrito' %}">Carrito de Compras</a>
+			<a href="{% url 'ver_boletas' %}">Boletas</a>
 		</nav>
 		<label for="btn-menu">✖️</label>
 	</div>

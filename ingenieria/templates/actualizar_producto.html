@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>SuperZoo - Administrador</title>
 	<link rel="stylesheet" href="/static/css/estilos.css" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"/>
 </head>
 <body style="background-color: #f7f5e1;">
@@ -17,12 +17,9 @@
 				<a href="{% url 'inicio' %}"><img src="/static/images/SUPERZOOlogo.jpg" alt="Logo"></a>
 			</div>
 			<nav class="menu">
-				<a href="{% url 'inicio' %}">Inicio</a>
-				<a href="{% url 'alimentos'%}">Alimentos</a>
-            	<a href="{% url 'accesorios' %}">Accesorios</a>
-            	<a href="{% url 'farmacia' %}">Farmacia</a>
-            	<a href="{% url 'nosotros' %}">Nosotros</a>
-            	<a href="{% url 'contacto' %}">Contacto</a>
+				<a href="{% url 'agregar_producto'%}">Agregar Producto</a>
+            	<a href="{% url 'productos' %}">Lista de Productos</a>
+            	<a href="{% url 'comparar_ganancias' %}">Comparar Ganancias</a>
                 <a href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
 			</nav>
 		</div>
@@ -35,15 +32,15 @@
                 {% csrf_token %}
 				<div class="mb-3">
 				<label class="mb-3" for="nombre_nuevo">Nombre:</label>
-                <input class="form-control" type="text" name="nombre_nuevo" required>
+                <input class="form-control" type="text" name="nombre_nuevo" maxlength="50" required>
 				</div>
 				<div class="mb-3">
                 <label class="mb-3" for="precio_nuevo">Precio:</label>
-                <input class="form-control" type="number" name="precio_nuevo"required>
+                <input class="form-control" name="precio_nuevo" maxlength="7"  min='10'oninput="this.value = this.value.replace(/\D/g,'')"required>
 				</div>
 				<div class="mb-3">
                 <label class="mb-3" for="stock_nuevo">Stock:</label>
-                <input class="form-control" type="number" name="stock_nuevo"required>
+                <input class="form-control" name="stock_nuevo" maxlength="6" min='1' oninput="this.value = this.value.replace(/\D/g,'')" required>
 				</div>
 				<div class="mb-3">
                 <button type="submit" class="btn btn-success">Actualizar producto</button>
